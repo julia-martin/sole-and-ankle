@@ -46,6 +46,11 @@ const ShoeCard = ({
     }
   };
 
+  const saleOrigPriceStyle = {
+    '--textDecoration': 'line-through',
+    '--color': COLORS.gray['700']
+  };
+
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
@@ -59,7 +64,7 @@ const ShoeCard = ({
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
-          <Price style={salePrice ? {'--textDecoration': 'line-through'} : {'--textDecoration': 'none'}}>{formatPrice(price)}</Price>
+          <Price style={salePrice ? saleOrigPriceStyle : {}}>{formatPrice(price)}</Price>
         </Row>
         <Row>
           <ColorInfo>{pluralize('Color', numOfColors)}</ColorInfo>
@@ -101,6 +106,7 @@ const Name = styled.h3`
 
 const Price = styled.span`
   text-decoration: var(--textDecoration);
+  color: var(--color);
 `;
 
 const SalePrice = styled.span`
