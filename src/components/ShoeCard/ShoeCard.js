@@ -29,13 +29,32 @@ const ShoeCard = ({
     ? 'on-sale'
     : isNewShoe(releaseDate)
       ? 'new-release'
-      : 'default'
+      : 'default';
+
+  const variantStyles = {
+    'on-sale': {
+      vars: {
+        '--backgroundColor': COLORS.primary,
+      },
+      text: 'Sale'
+    },
+    'new-release': {
+      vars: {
+        '--backgroundColor': COLORS.secondary,
+      },
+      text: 'Just Released!'
+    }
+  };
 
   return (
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
           <Image alt="" src={imageSrc} />
+          {variant !== 'default' &&
+          <VariantFlag style={variantStyles[variant]['vars']}>
+            {variantStyles[variant]['text']}
+          </VariantFlag>}
         </ImageWrapper>
         <Spacer size={12} />
         <Row>
@@ -86,6 +105,17 @@ const ColorInfo = styled.p`
 const SalePrice = styled.span`
   font-weight: ${WEIGHTS.medium};
   color: ${COLORS.primary};
+`;
+
+const VariantFlag = styled.div`
+  background-color: var(--backgroundColor);
+  border-radius: 2px;
+  color: ${COLORS.white};
+  font-weight: 700;
+  padding: 7px 9px 9px 10px;
+  position: absolute;
+  top: 12px;
+  right: -4px;
 `;
 
 export default ShoeCard;
